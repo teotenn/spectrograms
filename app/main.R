@@ -1,25 +1,23 @@
 box::use(
-  shiny[bootstrapPage, div, moduleServer, NS, renderUI, tags, uiOutput],
+  app/view/spectra
+)
+
+box::use(
+  shiny[bootstrapPage, div, moduleServer, NS, renderUI, tags],
 )
 
 #' @export
 ui <- function(id) {
   ns <- NS(id)
+  
   bootstrapPage(
-    uiOutput(ns("message"))
+    spectra$ui(ns("spectra"))
   )
 }
 
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    output$message <- renderUI({
-      div(
-        style = "display: flex; justify-content: center; align-items: center; height: 100vh;",
-        tags$h1(
-          tags$a("Check out Rhino docs!", href = "https://appsilon.github.io/rhino/")
-        )
-      )
-    })
+    spectra$server("spectra")
   })
 }
